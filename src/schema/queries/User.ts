@@ -1,4 +1,4 @@
-import { GraphQLID, GraphQLList } from "graphql";
+import { GraphQLID, GraphQLInt, GraphQLList } from "graphql";
 
 import { UserReturnType, UserType } from "../type_defs/User";
 import { Users } from "../../entities/Users";
@@ -29,5 +29,24 @@ export const GET_ALL_USERS = {
 	
 	async resolve(): Promise<Users[]> {
 		return await Users.find();
+	}
+};
+
+export const GET_ALL_USERS_PAGINATION = {
+	type: GraphQLList(UserType),
+	args: {
+		first: 	{ type: GraphQLInt },
+		offset: { type: GraphQLInt }
+	},
+	
+	async resolve(parent: any, args: any): Promise<Users[]> {
+		const [result, _] = await Users.findAndCount(
+			{
+				take: args.first || 5,
+				skip: args.offset || 5
+			}
+		);
+
+		return result;
 	}
 };
