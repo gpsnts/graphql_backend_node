@@ -5,10 +5,7 @@ import cors from "cors";
 import { setDatabaseConfigs } from "./database_config";
 import { schema } from "./schema";
 
-// console.log("path", __dirname + "/.env");
 require("dotenv").config();
-
-console.log("env", process.env);
 
 const main = async () => {
 	await setDatabaseConfigs();
