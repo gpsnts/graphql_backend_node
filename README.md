@@ -1,1 +1,1 @@
-# graphql_backend_node
+# arquitetura_graphql
